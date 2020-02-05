@@ -1,5 +1,11 @@
 language: java
 
+dist: trusty
+
+addons:
+  sonarcloud:
+    organization: "benjamincinquincpe" # the key of the org you chose at step #3
+
 services:
   - docker
 
