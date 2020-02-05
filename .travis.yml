@@ -9,15 +9,13 @@ addons:
 services:
   - docker
 
-script:
-  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent verify sonar:sonar -Dsonar.projectKey=benjamincinquincpe_sample-application-students
-
 cache:
   directories:
     - "$HOME/.m2/repository"
 
-deploy:
-  provider: script
-  script: bash docker_push
-  on:
-    branch: develop
+jobs:
+  include:
+    - stage: build
+      script: mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent verify sonar:sonar -Dsonar.projectKey=benjamincinquincpe_sample-application-students
+    - stage: deploy
+      script: ./docker-push
