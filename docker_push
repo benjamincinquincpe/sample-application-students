@@ -2,4 +2,12 @@
 
 echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
-docker push USER/REPO
+# Changelog
+docker build -t changelog sample-application-db-changelog-job/
+docker tag changelog benjamincinquincpe/my-sample-app-changelog:develop
+docker push my-changelog:develop
+
+# API
+docker build -t api sample-application-http-api-server/
+docker tag api benjamincinquincpe/my-sample-app-api:develop
+docker push my-sample-app-api:develop
