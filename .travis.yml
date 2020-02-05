@@ -17,5 +17,13 @@ jobs:
   include:
     - stage: build
       script: mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent verify sonar:sonar -Dsonar.projectKey=benjamincinquincpe_sample-application-students
-    - stage: deploy
-      script: ./docker_push.sh
+    - stage: docker-changelog
+      script: 
+        - docker build -t $DOCKER_USERNAME/my-sample-app-changelog sample-application-db-changelog-job/
+        - docker tag $DOCKER_USERNAME/my-sample-app-changelog $DOCKER_USERNAME/my-sample-app-changelog:develop
+        - docker push $DOCKER_USERNAME/my-sample-app-changelog:develop 
+    - stage: docker-api
+      script:
+        - docker build -t $DOCKER_USERNAME/my-sample-app-api sample-application-http-api-server/
+        - docker tag $DOCKER_USERNAME/my-sample-app-api $DOCKER_USERNAME/my-sample-app-api:develop
+        - docker push $DOCKER_USERNAME/my-sample-app-api:develop
