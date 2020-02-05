@@ -3,11 +3,11 @@
 echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
 # Changelog
-docker build -t changelog sample-application-db-changelog-job/
-docker tag changelog benjamincinquincpe/my-sample-app-changelog:develop
-docker push my-changelog:develop
+docker build -t benjamincinquincpe/my-sample-app-changelog sample-application-db-changelog-job/
+docker tag benjamincinquincpe/my-sample-app-changelog benjamincinquincpe/my-sample-app-changelog:develop
+docker push my-sample-app-changelog:develop
 
 # API
-docker build -t api sample-application-http-api-server/
-docker tag api benjamincinquincpe/my-sample-app-api:develop
+docker build -t benjamincinquincpe/my-sample-app-api sample-application-http-api-server/
+docker tag benjamincinquincpe/my-sample-app-api benjamincinquincpe/my-sample-app-api:develop
 docker push my-sample-app-api:develop
