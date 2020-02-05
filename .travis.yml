@@ -3,12 +3,14 @@ language: java
 addons:
   sonarcloud:
     organization: "benjamincinquincpe" # the key of the org you chose at step #3
+    token:
+      secure: $SONAR_TOKEN
 
 services:
   - docker
 
 script:
-  - mvn dependency:go-offline clean verify
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent verify sonar:sonar -Dsonar.projectKey=benjamincinquincpe_sample-application-students
 
 cache:
   directories:
